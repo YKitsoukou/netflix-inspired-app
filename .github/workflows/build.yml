@@ -34,9 +34,9 @@
             run: |
                   #run commands to build and push docker images
                   docker build --build-arg TMDB_V3_API_KEY=34415bf39e9b5734dc314350d5943e11 -t netflix .
-                  docker tag netflix sushantkapare1717/netflix:latest
+                  docker tag netflix ykitsoukou/neftlix:latest
                   docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-                  docker push sushantkapare1717/netflix:latest  
+                  docker push ykitsoukou/neftlix:latest
             env:
                   DOCKER_CLI_ACI: 1
       deploy:    
@@ -44,8 +44,8 @@
         runs-on: [aws-netflix]  
         steps:
           - name: Pull the docker image
-            run: docker pull sushantkapare1717/netflix:latest
+            run: docker pull ykitsoukou/neftlix:latest
           - name: Trivy image scan
-            run: trivy image sushantkapare1717/netflix:latest
+            run: trivy image ykitsoukou/neftlix:latest
           - name: Run the container netflix
-            run: docker run -d --name netflix -p 8081:80 sushantkapare1717/netflix:latest
+            run: docker run -d --name netflix -p 8081:80 ykitsoukou/neftlix:latest
